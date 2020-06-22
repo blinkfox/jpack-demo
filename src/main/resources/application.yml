@@ -1,0 +1,20 @@
+# 服务端口，默认为 8080.
+server:
+  port: 8080
+
+# Spring 相关的配置.
+spring:
+  profiles:
+    active: local
+  application:
+    name: jpack-demo
+
+# 日志相关的简单配置.
+logging:
+  file:
+    name: logs/jpack-demo.log
+  level:
+    root: info
+    org:
+      apache: error
+      springframework: error
