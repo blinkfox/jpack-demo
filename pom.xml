@@ -67,6 +67,10 @@
 					<vmOptions>-Xms1024m -Xmx2048m</vmOptions>
 					<!-- 所集成的 SpringBoot 服务程序运行所需的参数. -->
 					<programArgs>--loggin.level.root=warn</programArgs>
+					<!-- 复制 application.yml 到各平台的 config 目录中. -->
+					<configFiles>
+						<param>src/main/resources/application.yml</param>
+					</configFiles>
 					<!-- 排除 windows 平台中的 logs 目录. -->
 					<windows>
 						<excludeFiles>
