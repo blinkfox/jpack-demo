@@ -11,7 +11,7 @@
 
 	<groupId>com.blinkfox</groupId>
 	<artifactId>jpack-demo</artifactId>
-	<version>1.5.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>jpack-demo</name>
 	<description>这是 SpringBoot 项目中的 jpack 使用示例。</description>
 
@@ -49,31 +49,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+			<!-- 引入 jpack-maven-plugin 插件 -->
 			<plugin>
 				<groupId>com.blinkfox</groupId>
 				<artifactId>jpack-maven-plugin</artifactId>
-				<version>1.5.0-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build</goal>
-						</goals>
-						<!-- 设置 mvn install 阶段才执行 jpack 的打包构建.-->
-						<phase>install</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<docker>
-						<extraGoals>
-							<param>save</param>
-							<!-- <param>push</param> -->
-						</extraGoals>
-					</docker>
-				</configuration>
+				<version>1.5.1</version>
 			</plugin>
 		</plugins>
 	</build>
