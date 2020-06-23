@@ -1,0 +1,26 @@
+deploys:
+  jpackDemo:
+    replicas: 1
+    containers:
+      container:
+        image: registry.yourcompany.com:5000/com.blinkfox/jpack-demo:1.0.0
+        pullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 2000m
+            memory: 2000M
+          requests:
+            cpu: 1000m
+            memory: 1000M
+        env:
+          JVM_OPTS: -Xms512m -Xmx2048m
+          PROGRAM_ARGS: --logging.level.root=info
+pvcs:
+  jpackPvc:
+    accessMode: ReadWriteMany
+    size: 5G
+    storageClass: nfs
+services:
+  jpackSvc:
+    nodeport:
+      tcp8080: 28080

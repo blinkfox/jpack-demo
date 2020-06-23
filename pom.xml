@@ -54,6 +54,49 @@
 				<groupId>com.blinkfox</groupId>
 				<artifactId>jpack-maven-plugin</artifactId>
 				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<docker>
+						<registry>registry.yourcompany.com:5000</registry>
+						<!-- Docker 镜像仓库的分组仓库，不填写，将默认使用 groupId. -->
+						<repo>blinkfox</repo>
+						<!-- 对外暴露的端口，不配置该值，将不会在 Dockerfile 中生成 EXPOSE 指令. -->
+						<expose>8080</expose>
+						<!-- 自定义的 Dockerfile 指令选项，可以填写多个值，每个值在 Dockerfile 中占一行，充当Dockerfile中的一条指令，例如：下面设置时区的一个指令. -->
+						<customCommands>
+							<param>RUN echo 'Asia/Shanghai' >/etc/timezone</param>
+						</customCommands>
+						<extraGoals>
+							<!-- 构建 docker 镜像之外的额外目标，push 表示推送镜像到远程的 registry 仓库. -->
+							<param>push</param>
+						</extraGoals>
+						<registryUser>
+							<username>your-username</username>
+							<password>your-password</password>
+						</registryUser>
+					</docker>
+					<helmChart>
+						<!-- helm chart 源文件的目录位置，目前仅支持本地文件的绝对或相对路径. -->
+						<location>jpack-chart</location>
+						<!-- 要推送 helm chart 所在仓库的 API URL 地址. -->
+						<chartRepoUrl>http://registry.yourcompany.com:5000/api/chartrepo/blinkfox/charts</chartRepoUrl>
+						<!-- 该值表示 save 导出时，是否使用本插件 Docker 构建的镜像，将其也导出到最终的镜像包中，默认为 false. -->
+						<useDockerImage>true</useDockerImage>
+						<!-- 构建目标，这里设置了 chart 打包、推送和导出. -->
+						<goals>
+							<param>package</param>
+							<param>push</param>
+							<param>save</param>
+						</goals>
+					</helmChart>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

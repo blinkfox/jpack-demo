@@ -1,0 +1,14 @@
+name: jpack-chart
+version: 1.0.0
+apiVersion: v2
+description: 这是 jpack-maven-plugin 使用示例服务（jpack-demo）的 Helm chart。
+keywords:
+  - jpack
+home: https://github.com/blinkfox/jpack-maven-plugin
+sources:
+  - https://github.com/blinkfox/jpack-demo
+maintainers:
+  - name: blinkfox
+    email: chenjiayin1990@163.com
+    url: https://github.com/blinkfox
+icon: https://blinkfox.github.io/medias/avatar.jpg

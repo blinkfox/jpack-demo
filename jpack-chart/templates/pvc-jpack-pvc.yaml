@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "jpack-chart.fullname" . }}-jpack-pvc
+  labels:
+    arterydocker/chart: {{ include "jpack-chart.name" . }}
+    app.kubernetes.io/instance: "{{ include "jpack-chart.fullname" . }}-jpack-pvc"
+spec:
+  accessModes:
+    - {{ .Values.pvcs.jpackPvc.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.pvcs.jpackPvc.size | quote }}
+{{- if .Values.pvcs.jpackPvc.storageClass }}
+  storageClassName: "{{ .Values.pvcs.jpackPvc.storageClass }}"
+{{- end }}

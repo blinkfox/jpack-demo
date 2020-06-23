@@ -1,0 +1,23 @@
+categories:
+- cms
+questions:
+- variable: pvcs.jpackPvc.storageClass
+  default: ""
+  required: true
+  type: storageclass
+  label: "使用的存储类型"
+  group: storage
+- variable: deploys.jpackDemo.containers.container.env.JVM_OPTS
+  label: "JVM 参数配置"
+  description: 配置 Java 虚拟机的相关参数，强烈建议设置最大堆内存
+  type: string
+  required: true
+  default: "-Xms512m -Xmx2048m"
+  group: "环境变量配置"
+- variable: deploys.jpackDemo.containers.container.env.PROGRAM_ARGS
+  label: "Jpack 应用参数配置"
+  description: Jpack Demo 应用中的参数配置，可参考 application.yml 文档去配置，每个参数前都加一个【--】，用空格隔开，可任意追加
+  type: string
+  required: false
+  default: "--logging.level.root=warn"
+  group: "环境变量配置"

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ include "jpack-chart.fullname" . }}-jpack-demo"
+  labels:
+    arterydocker/chart: {{ include "jpack-chart.name" . }}
+    app.kubernetes.io/instance: "{{ include "jpack-chart.fullname" . }}-jpack-demo"
+spec:
+  replicas: {{ .Values.deploys.jpackDemo.replicaCount }}
+  selector:
+    matchLabels:
+      arterydocker/chart: {{ include "jpack-chart.name" . }}
+      app.kubernetes.io/instance: "{{ include "jpack-chart.fullname" . }}-jpack-demo"
+  template:
+    metadata:
+      labels:
+        arterydocker/chart: {{ include "jpack-chart.name" . }}
+        app.kubernetes.io/instance: "{{ include "jpack-chart.fullname" . }}-jpack-demo"
+    spec:
+      containers:
+        - name: container
+          image: {{ .Values.deploys.jpackDemo.containers.container.image }}
+          imagePullPolicy: {{ .Values.deploys.jpackDemo.containers.container.pullPolicy }}
+          {{- with .Values.deploys.jpackDemo.containers.container.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+          - mountPath : /logs
+            name : jpack-pvc
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JVM_OPTS
+              value: {{ .Values.deploys.jpackDemo.containers.container.env.JVM_OPTS | quote }}
+            - name: PROGRAM_ARGS
+              value: {{ .Values.deploys.jpackDemo.containers.container.env.PROGRAM_ARGS | quote }}
+      volumes:
+      - name : jpack-pvc
+        persistentVolumeClaim:
+          claimName : {{ include "jpack-chart.fullname" . }}-jpack-pvc
