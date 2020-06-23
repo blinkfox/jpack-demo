@@ -63,6 +63,16 @@
 					</execution>
 				</executions>
 				<configuration>
+					<!-- JVM 运行所需的参数选项. -->
+					<vmOptions>-Xms1024m -Xmx2048m</vmOptions>
+					<!-- 所集成的 SpringBoot 服务程序运行所需的参数. -->
+					<programArgs>--loggin.level.root=warn</programArgs>
+					<!-- 排除 windows 平台中的 logs 目录. -->
+					<windows>
+						<excludeFiles>
+							<param>logs</param>
+						</excludeFiles>
+					</windows>
 					<docker>
 						<registry>registry.yourcompany.com:5000</registry>
 						<!-- Docker 镜像仓库的分组仓库，不填写，将默认使用 groupId. -->
@@ -89,13 +99,24 @@
 						<chartRepoUrl>http://registry.yourcompany.com:5000/api/chartrepo/blinkfox/charts</chartRepoUrl>
 						<!-- 该值表示 save 导出时，是否使用本插件 Docker 构建的镜像，将其也导出到最终的镜像包中，默认为 false. -->
 						<useDockerImage>true</useDockerImage>
-						<!-- 构建目标，这里设置了 chart 打包、推送和导出. -->
+						<!-- 构建目标，这里设置了 chart 打包、chart 推送和应用包导出. -->
 						<goals>
 							<param>package</param>
 							<param>push</param>
 							<param>save</param>
 						</goals>
 					</helmChart>
+					<!-- 复制项目中的 releases 目录中的所有文件到各平台根目录压缩包中. -->
+					<copyResources>
+						<copyResource>
+							<from>releases</from>
+							<to>/</to>
+						</copyResource>
+					</copyResources>
+					<!-- 排除各平台下的压缩包中的 docs-src 目录. -->
+					<excludeFiles>
+						<param>docs-src</param>
+					</excludeFiles>
 				</configuration>
 			</plugin>
 		</plugins>
