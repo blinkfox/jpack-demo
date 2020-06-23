@@ -3,7 +3,7 @@ deploys:
     replicas: 1
     containers:
       container:
-        image: registry.yourcompany.com:5000/com.blinkfox/jpack-demo:1.0.0
+        image: registry.yourcompany.com:5000/blinkfox/jpack-demo:1.0.0
         pullPolicy: IfNotPresent
         resources:
           limits:

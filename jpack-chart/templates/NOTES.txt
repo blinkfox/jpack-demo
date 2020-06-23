@@ -1,1 +1,1 @@
-Chart's usage, need developers to improve.
+这是 jpack-maven-plugin 使用示例服务（jpack-demo）的 Helm chart。
