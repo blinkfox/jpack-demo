@@ -21,3 +21,10 @@ questions:
   required: false
   default: "--logging.level.root=warn"
   group: "环境变量配置"
+- variable: services.jpackSvc.nodeport.tcp8080
+  label: "HTTP 服务端口"
+  description: Jpack demo 项目对外暴露的用于访问的 HTTP 服务端口
+  type: int
+  required: true
+  default: 28080
+  group: "环境变量配置"
